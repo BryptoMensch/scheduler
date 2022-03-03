@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+!["A dynamic React app"](https://github.com/BryptoMensch/scheduler/blob/master/docs/scheduler_dynamic.png)
+
 ## Setup
 
 Install dependencies with `npm install`.
