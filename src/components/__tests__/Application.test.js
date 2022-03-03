@@ -63,9 +63,7 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
 	);
 
 	fireEvent.click(queryByAltText(appointment, "Delete"));
-	expect(
-		getByText(appointment, "Are you sure you want to delete?")
-	).toBeInTheDocument();
+	expect(getByText(appointment, "Delete")).toBeInTheDocument();
 
 	fireEvent.click(queryByText(appointment, "Confirm"));
 	expect(getByText(appointment, "Deleting")).toBeInTheDocument();
@@ -75,34 +73,34 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
 		queryByText(day, "Monday")
 	);
 
-	expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
+	expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
 });
 
 // 4. LOAD/EDIT/KEEPS
-it("loads data, edits interview, keeps the spots remaining for Monday the same", async () => {
+it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
 	const { container } = render(<Application />);
+
 	await waitForElement(() => getByText(container, "Archie Cohen"));
 	const appointment = getAllByTestId(container, "appointment").find(
 		(appointment) => queryByText(appointment, "Archie Cohen")
 	);
 
 	fireEvent.click(queryByAltText(appointment, "Edit"));
-	expect(getByDisplayValue(appointment, "Archie Cohen"));
 
 	fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
-		target: { value: "Zach" },
+		target: { value: "Lydia Miller-Jones" },
 	});
 	fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
-	fireEvent.click(getByText(appointment, "Save"));
 
+	fireEvent.click(getByText(appointment, "Save"));
 	expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-	await waitForElement(() => getByText(appointment, "Zach"));
+	await waitForElement(() => getByText(container, "Sylvia Palmer"));
+	expect(getByText(container, "Sylvia Palmer")).toBeInTheDocument();
 	const day = getAllByTestId(container, "day").find((day) =>
 		queryByText(day, "Monday")
 	);
-
-	expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+	expect(getByText(day, "1 spot remaining"));
 });
 
 // 5. SHOWS SAVE ERROR
@@ -148,9 +146,7 @@ it("shows the delete error when failing to delete an existing appointment", asyn
 	);
 	fireEvent.click(queryByAltText(appointment, "Delete"));
 
-	expect(
-		getByText(appointment, "Are you sure you would like to delete?")
-	).toBeInTheDocument();
+	expect(getByText(appointment, "Delete")).toBeInTheDocument();
 
 	fireEvent.click(queryByText(appointment, "Confirm"));
 

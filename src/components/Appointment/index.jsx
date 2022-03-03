@@ -10,11 +10,6 @@ import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
 
-
-
-
-
-
 export default function Appointment (props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -86,7 +81,7 @@ export default function Appointment (props) {
         <Confirm
         onConfirm={remove}
         onCancel={back}
-        message="Are you sure you would like to delete?"
+        message="Delete"
         />
       )}
 
