@@ -123,14 +123,17 @@ storiesOf("InterviewerList", module)
 	.addParameters({
 		backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
 	})
-	.add("Initial", () => <InterviewerList interviewers={interviewers} />)
-	.add("Selected", () => (
-		<InterviewerList interviewers={interviewers} value={3} />
-	))
-	.add("Clickable", () => (
+	.add("Initial", () => (
 		<InterviewerList
 			interviewers={interviewers}
-			onChange={action("setInterviewer")}
+			setInterviewer={action("setInterviewer")}
+		/>
+	))
+	.add("Preselected", () => (
+		<InterviewerList
+			interviewers={interviewers}
+			interviewer={3}
+			setInterviewer={action("setInterviewer")}
 		/>
 	));
 
@@ -196,8 +199,3 @@ storiesOf("Appointment", module)
 			<Appointment time="5pm" />
 		</Fragment>
 	));
-
-// student:String eg. "Lydia Miller-Jones"
-// interviewer:Object we can use the interview object that already exists in stories/index.js for this
-// onEdit:Function to be called when the user clicks the Edit button
-// onDelete:Function to be called when the user clicks the Delete button
