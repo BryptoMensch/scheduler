@@ -13,8 +13,6 @@ import {
 	queryByText,
 	queryByAltText,
 	fireEvent,
-	prettyDOM,
-	wait,
 } from "@testing-library/react";
 
 afterEach(cleanup);
@@ -32,7 +30,7 @@ describe("Application", () =>
 
 // 2. LOADS/BOOKS/REDUCES
 it("loads data, books interview, reduces spots remaining for Monday by one", async () => {
-	const { container, debug } = render(<Application />);
+	const { container } = render(<Application />);
 	await waitForElement(() => getByText(container, "Archie Cohen"));
 	const appointments = getAllByTestId(container, "appointment");
 	const appointment = appointments[0];
@@ -108,7 +106,7 @@ it("loads data, edits interview, keeps the spots remaining for Monday the same",
 });
 
 // 5. SHOWS SAVE ERROR
-it("shows the save error when failing to save an appointment", async () => {
+it("shows save error when failing to save an appointment", async () => {
 	axios.put.mockRejectedValueOnce();
 	const { container } = render(<Application />);
 	await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -166,8 +164,4 @@ it("shows the delete error when failing to delete an existing appointment", asyn
 	);
 
 	expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
-});
-
-it("renders without crashing", () => {
-	render(<Application />);
 });
